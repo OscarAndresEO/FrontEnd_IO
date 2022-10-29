@@ -1,0 +1,199 @@
+<div class="container tamanio">
+    <mat-card>
+        <mat-card-header>
+            <h1>Nueva Venta</h1>
+        </mat-card-header>
+        <br>
+        <mat-card-content>
+            <div class="row">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Fecha</mat-label>
+                    <input matInput disabled value="{{fechaMostrar | date: 'M/d/yy'}}">
+                </mat-form-field>
+            </div>
+            <h2>Cliente</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Cliente</mat-label>
+                        <mat-select [(ngModel)]="ingreso.id_persona" name="id_persona" onchange="getDatos()">
+                            <mat-option *ngFor="let prov of clientes" [value]="prov.id_persona" 
+                                (click)="clienteSeleccionado(prov.id_persona)">{{prov.nombre_persona}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Nit</mat-label>
+                        <input matInput disabled value="{{clienteElegido.nit}}">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Direccion</mat-label>
+                        <input matInput disabled value="{{clienteElegido.direccion}}">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Telefono </mat-label>
+                        <input matInput disabled value="{{clienteElegido.telefono}}">
+                    </mat-form-field>
+                </div>
+            </div>
+            <br>
+            <h2>Marca Y Categoria</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Marca</mat-label>
+                        <mat-select name="id_marca">
+                            <mat-option *ngFor="let marc of marcas" [value]="marc.id_marca"
+                                (click)="getMarcas(marc.id_marca)">
+                                {{marc.descripcion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Categoria</mat-label>
+                        <mat-select name="id_marca">
+                            <mat-option *ngFor="let cat of categorias" [value]="cat.id_categoria"
+                                (click)="getCategorias(cat.id_categoria)">
+                                {{cat.descripcion_cat}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <br>
+        <!--PRODUCTOS SELECCIONADOS  *ngIf="mostrarTabla2"-->
+       
+        <!--SELECCIONAR PRODUCTOS-->
+        <div *ngIf="mostrarTabla" >
+            <h2>Seleccionar Productos</h2>
+            <mat-form-field appearance="standard">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" [(ngModel)]="nombreProducto">
+            </mat-form-field>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <!-- Id -->
+                <ng-container matColumnDef="id_producto">
+                    <th mat-header-cell *matHeaderCellDef> Id </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id_producto}} </td>
+                </ng-container>
+
+                <!-- Nombre -->
+                <ng-container matColumnDef="nombre_producto">
+                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre_producto}} </td>
+                </ng-container>
+
+                <!-- Linea Column -->
+                <ng-container matColumnDef="linea">
+                    <th mat-header-cell *matHeaderCellDef> Linea </th>
+                    <td mat-cell *matCellDef="let element"> {{element.linea}} </td>
+                </ng-container>
+
+                <!-- Modelo Column -->
+                <ng-container matColumnDef="modelo">
+                    <th mat-header-cell *matHeaderCellDef> Modelo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.modelo}} </td>
+                </ng-container>
+
+            <!-- Modelo Column -->
+            <ng-container matColumnDef="cilindraje">
+                <th mat-header-cell *matHeaderCellDef> Cilindraje </th>
+                <td mat-cell *matCellDef="let element"> {{element.cilindraje}} </td>
+            </ng-container>
+
+                <!-- Modelo Column -->
+                <ng-container matColumnDef="existencias">
+                    <th mat-header-cell *matHeaderCellDef> Existencias </th>
+                    <td mat-cell *matCellDef="let element"> {{element.existencias}} </td>
+                </ng-container>
+
+                <!-- Accion Column -->
+                <ng-container matColumnDef="accion">
+                    <th mat-header-cell *matHeaderCellDef> Accion </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button (click)="seleccionarProducto(element.id_producto)">
+                            <mat-icon>add</mat-icon>
+                        </button> 
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No se encontro el producto... "{{nombreProducto.value}}"</td>
+                </tr>
+                <div class="row">
+                    <button mat-raised-button>Crear</button>
+                </div>
+            </table>          
+        </div>
+
+        <br>
+        <br>
+        
+        <div *ngIf="mostrarTabla2">
+            <h2>Productos Seleccionados</h2>
+            <div class="table-responsive">
+                <table class="table">
+                <thead>
+                    <tr>
+                        <th class="tg-0lax">ID</th>
+                        <th class="tg-0lax">NOMBRE</th>
+                        <th class="tg-0lax">MARCA</th>
+                        <th class="tg-0lax">CATEGORIA</th>
+                        <th class="tg-0lax">PRECIO</th>
+                        <th class="tg-0lax">CANTIDAD</th>
+                        <th class="tg-0lax">SUBTOTAL</th>
+                        <th class="tg-0lax">ACCIONES</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let p of productosSeleccionados">
+                        <td class="tg-0lax">{{p.id_producto}}</td>
+                        <td class="tg-0lax">{{p.nombre_producto}}</td>
+    <!--marca-->        <td class="tg-0lax">{{p.descripcion}}</td> 
+    <!--categoria-->    <td class="tg-0lax">{{p.descripcion_cat}}</td> 
+                        <td class="tg-0lax">Q. {{p.precio}}</td>
+                        <td> <input type="number" name="cantidad" [(ngModel)]="p.cantidad" > </td>
+                        <td class="tg-0lax">Q. {{(p.precio*p.cantidad)}}</td>
+                        <td>
+                            <button mat-icon-button color="warn" 
+                            aria-label="Example icon button with a heart icon"
+                            (click)="eliminarSeleccionado(p.id_producto)">
+                                <mat-icon>delete</mat-icon>
+                            </button>                          
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+                {{venta.total_venta}}
+            </div>              
+        </div>
+        <br>
+        <mat-card-actions>
+            <div class="row btnCardActions">
+                <div class="col-md-2">
+                    <button mat-raised mat-button color="primary" *ngIf="mostrarVender" (click)="venderProducto()">
+                    Vender Productos
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button mat-button [routerLink]="['/ventas']" color="warn">Cancelar</button>
+                </div>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</div>

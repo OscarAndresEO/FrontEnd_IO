@@ -1,0 +1,60 @@
+<app-sidenav></app-sidenav>
+<div class="container tamanio">
+    <mat-card>
+      <mat-card-header>
+        <h2 >{{titulo}}</h2>
+      </mat-card-header>
+      <mat-card-content>
+        
+      </mat-card-content>
+     
+
+      <table class="table table-hover" id="pdf">
+        <thead>
+            <tr>
+              <th class="tg-0lax">ID</th>
+              <th class="tg-0lax">NOMBRE</th>
+              <th class="tg-0lax">USUARIO CREACION</th>
+              <th class="tg-0lax">FECHA DE CREACION</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of marcas ">
+              <td class="tg-0lax" >{{s.id_marca}}</td>
+              <td class="tg-0lax" >{{s.descripcion}}</td>
+              <td class="tg-0lax" >{{s.usuario_creacion}}</td>
+              <td class="tg-0lax">{{s.fecha_creacion}}</td>
+              <td>
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item [routerLink]="['update', s.id_marca]">
+                      <mat-icon>update</mat-icon>
+                      <span>Editar</span>
+                    </button>
+                    <button mat-menu-item  (click)="deleteMarca(s.id_marca)">
+                      <mat-icon>delete</mat-icon>
+                      <span>Eliminar</span>
+                    </button>
+                  </mat-menu>
+                
+              </td>
+            </tr>
+          </tbody>
+      </table>
+      <mat-paginator [length]="100"
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+      </mat-paginator>
+
+        <mat-card-actions>
+          <button mat-raised-button color="primary" [routerLink]="['crear']">Nueva</button>
+
+          <button (click)="downloadPdf()" mat-raised-button color="warn">
+            <mat-icon>summarize</mat-icon> Crear Reporte
+          </button>
+        </mat-card-actions>
+    </mat-card>
+  </div>

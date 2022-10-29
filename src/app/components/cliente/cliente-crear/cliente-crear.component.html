@@ -1,0 +1,105 @@
+<div class="container tamanio">
+    <mat-card class="example-card">
+        <mat-card-title>{{titulo}}</mat-card-title>
+        <mat-card-subtitle>Ingresa los datos del cliente</mat-card-subtitle>
+    <mat-card-content>
+
+    <form [formGroup]="formularioCliente">
+    <div class="row">
+    <div class="col">
+    <div class="row">
+        <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput placeholder="Nombre del cliente" type="text"  name="nombre_persona" 
+         [(ngModel)]="cliente.nombre_persona"
+        required minlength="10" maxlength="64"
+        formControlName="nombre_persona"
+        >
+        <mat-error *ngIf="nombre_persona.invalid && (nombre_persona.dirty || nombre_persona.touched)" ></mat-error>
+        <mat-error *ngIf="nombre_persona.errors?.['required']">{{getErrorNombreRequired()}}</mat-error>
+        <mat-error *ngIf="nombre_persona.errors?.['minlength']">{{getErrorNombreMin()}}</mat-error> 
+    </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="fill">
+        <mat-label>Direccion</mat-label>
+        <input matInput placeholder="Direccion del cliente" required name="direccion"
+        [(ngModel)]="cliente.direccion"
+         minlength="10" maxlength="64" 
+         formControlName="direccion"
+    >
+        <mat-error *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" ></mat-error>
+        <mat-error *ngIf="direccion.errors?.['required']">{{getErrorDireccionRequired()}}</mat-error>
+        <mat-error *ngIf="direccion.errors?.['minlength']">{{getErrorDireccionMin()}}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="fill">
+            <mat-label>Celular</mat-label>
+            <input matInput placeholder="Numero de Celular" data-mask="00000000" name="celular"
+            [(ngModel)]="cliente.celular"
+            maxlength="8" minlength="8" 
+            formControlName="celular"
+            >
+   
+        <mat-error *ngIf="celular.invalid && (celular.dirty || celular.touched)" ></mat-error>
+        <mat-error *ngIf="celular.errors?.['required']">{{getErrorCuiRequired()}}</mat-error>
+        <mat-error *ngIf="celular.errors?.['minlength']">{{getErrorCuiMin()}}</mat-error> 
+        </mat-form-field>
+    </div>
+
+</div>
+    <div class="col">
+        <div class="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Nit</mat-label>
+                <input matInput placeholder="Nit sin guion"  name="nit"
+                [(ngModel)]="cliente.nit" 
+                required minlength="5" maxlength="11" 
+                formControlName="nit"
+                >
+           <mat-error *ngIf="nit.invalid && (nit.dirty || nit.touched)" ></mat-error>
+            <mat-error *ngIf="nit.errors?.['required']">{{getErrorEmailRequired()}}</mat-error>
+            <mat-error *ngIf="nit.errors?.['minlength']">El campo debe tener mas de 5 caracteres</mat-error> 
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Telefono Fijo</mat-label>
+                <input matInput placeholder="Telefono de Linea Fija"  name="telefono_fijo"
+                [(ngModel)]="cliente.telefono_fijo"
+                maxlength="8" minlength="8" data-mask="00000000"
+                formControlName="telefono_fijo"
+                >
+
+               <mat-error *ngIf="telefono_fijo.invalid && (telefono_fijo.dirty || telefono_fijo.touched)" ></mat-error>
+                <mat-error *ngIf="telefono_fijo.errors?.['required']">{{getErrorUsernameRequired()}}</mat-error>
+                <mat-error *ngIf="telefono_fijo.errors?.['minlength']">{{getErrorUsernameMin()}}</mat-error>
+            </mat-form-field>
+        </div>
+
+    </div>
+    </div>
+
+    </form>
+
+    </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" name="btnGuardar" *ngIf="!cliente.id_persona else elseBlock"
+                
+                (click)="crearCliente()" [disabled]="!formularioCliente.valid">
+                Guardar
+            </button>
+
+            <ng-template #elseBlock>
+                <button mat-raised-button color="primary" (click)="updateCliente()" id="btnUpdate"
+                    [disabled]="!formularioCliente.valid"
+                >Actualizar</button>
+            </ng-template>    
+            <button mat-raised-button color="primary" [routerLink]="['/clientes']">Cancelar</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

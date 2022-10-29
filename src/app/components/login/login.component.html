@@ -1,0 +1,46 @@
+
+<div class="container container_login">
+<mat-card>
+    <mat-card-header>
+        
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>LOGIN</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+<br>
+    <mat-card-content>
+        <div class="row justify-content-md-center">
+        
+            <mat-form-field appearance="outline" class="inputLogin">
+                <mat-label>Username</mat-label>
+                <input matInput placeholder="nombre de usuario" type="text" 
+                [(ngModel)]="usuario.username"
+                >
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+           
+            <mat-form-field appearance="outline" class="inputLogin">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="usuario.clave">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+            <br>
+           
+        </div>
+    </mat-card-content>
+    
+    <mat-card-actions>
+    <div class="row justify-content-md-center">
+        <button mat-raised-button color="primary" class="buttonLogin" (click)="login()">Login</button>
+        <br>
+    </div>
+    <br>
+    <div class="row justify-content-md-center"> 
+    </div>
+    
+    </mat-card-actions>
+</mat-card>    
+
+</div>

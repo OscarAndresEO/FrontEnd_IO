@@ -1,0 +1,122 @@
+<div class="container tamanio">
+    <mat-card class="example-card">
+        <mat-card-title>{{titulo}}</mat-card-title>
+        <mat-card-subtitle>Ingresa los datos del proveedor</mat-card-subtitle>
+    <mat-card-content>
+
+    <form [formGroup]="formularioProveedor">
+    <div class="row">
+    <div class="col">
+    <div class="row">
+        <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput placeholder="nombre del proveedor" type="text"  name="nombre" 
+         [(ngModel)]="proveedor.nombre_persona"
+        required minlength="10" maxlength="64"
+        formControlName="nombre" 
+        >
+        <mat-error *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" ></mat-error>
+        <mat-error *ngIf="nombre.errors?.['required']">{{getErrorNombreRequired()}}</mat-error>
+        <mat-error *ngIf="nombre.errors?.['minlength']">{{getErrorNombreMin()}}</mat-error> 
+    </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="fill">
+        <mat-label>Direccion</mat-label>
+        <input matInput placeholder="Direccion del proveedor" required name="direccion"
+        [(ngModel)]="proveedor.direccion"
+         minlength="10" maxlength="64" 
+         formControlName="direccion"
+    >
+        <mat-error *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" ></mat-error>
+        <mat-error *ngIf="direccion.errors?.['required']">{{getErrorDireccionRequired()}}</mat-error>
+        <mat-error *ngIf="direccion.errors?.['minlength']">{{getErrorDireccionMin()}}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="fill">
+            <mat-label>Celular</mat-label>
+            <input matInput placeholder="Numero de Celular" data-mask="00000000" name="celular"
+            [(ngModel)]="proveedor.celular"
+            maxlength="8" minlength="8" 
+            formControlName="celular"
+            >
+   
+        <mat-error *ngIf="celular.invalid && (celular.dirty || celular.touched)" ></mat-error>
+        <mat-error *ngIf="celular.errors?.['required']">{{getErrorCuiRequired()}}</mat-error>
+        <mat-error *ngIf="celular.errors?.['minlength']">{{getErrorCuiMin()}}</mat-error> 
+        </mat-form-field>
+    </div>
+
+</div>
+    <div class="col">
+        <div class="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Nit</mat-label>
+                <input matInput placeholder="Nit sin guion"  name="nit"
+                [(ngModel)]="proveedor.nit" 
+                required minlength="5" maxlength="11" 
+                formControlName="nit"
+                >
+           <mat-error *ngIf="nit.invalid && (nit.dirty || nit.touched)" ></mat-error>
+            <mat-error *ngIf="nit.errors?.['required']">{{getErrorEmailRequired()}}</mat-error>
+            <mat-error *ngIf="nit.errors?.['minlength']">El campo debe tener mas de 5 caracteres</mat-error> 
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Telefono Fijo</mat-label>
+                <input matInput placeholder="Telefono de Linea Fija"  name="telefono_fijo"
+                [(ngModel)]="proveedor.telefono_fijo"
+                maxlength="8" minlength="8" data-mask="00000000"
+                formControlName="telefono_fijo"
+                >
+
+               <mat-error *ngIf="telefono_fijo.invalid && (telefono_fijo.dirty || telefono_fijo.touched)" ></mat-error>
+                <mat-error *ngIf="telefono_fijo.errors?.['required']">{{getErrorUsernameRequired()}}</mat-error>
+                <mat-error *ngIf="telefono_fijo.errors?.['minlength']">{{getErrorUsernameMin()}}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Pagina Web</mat-label>
+                <input matInput placeholder="www.proveedor.com.gt" name="pagina_web"
+                [(ngModel)]="proveedor.pagina_web"
+                maxlength="64" minlength="5"
+                formControlName="pagina_web"
+                >
+          
+                <mat-error *ngIf="pagina_web.invalid && (pagina_web.dirty || pagina_web.touched)" ></mat-error>
+                <mat-error *ngIf="pagina_web.errors?.['required']">{{getErrorClaveRequired()}}</mat-error>
+                <mat-error *ngIf="pagina_web.errors?.['minlength']">{{getErrorClaveMin()}}</mat-error> 
+            </mat-form-field>
+        </div>
+
+    </div>
+    </div>
+
+    </form>
+
+    </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" name="btnGuardar" *ngIf="!proveedor.id_persona else elseBlock"
+                
+                (click)="crearProveedor()" [disabled]="!formularioProveedor.valid">
+                Guardar
+            </button>
+
+            <ng-template #elseBlock>
+                <button mat-raised-button color="primary" (click)="updateProveedor()" id="btnUpdate"
+                    [disabled]="!formularioProveedor.valid"
+                >Actualizar</button>
+            </ng-template>
+
+    
+                <button mat-raised-button color="primary" [routerLink]="['/proveedores']">Cancelar</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

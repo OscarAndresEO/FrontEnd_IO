@@ -1,0 +1,71 @@
+<div class="container tamanio">
+    <mat-card class="example-card">
+        <mat-card-title>{{titulo}}</mat-card-title>
+        <mat-card-subtitle>Ingresa los datos de la sucursal</mat-card-subtitle>
+        <mat-card-content>
+    
+            <form [formGroup]="formularioSucursal">
+                <div class="row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput placeholder="nombre de la sucursal" type="text" formControlName="nombre"
+                        [(ngModel)]="sucursal.nombre_sucursal"  
+                        [formControl]="nombre" required
+                        >
+                    <mat-error *ngIf="nombre.invalid" >{{getErrorMessageNombre()}}</mat-error>
+                    <mat-error *ngIf="nombre.errors?.['minlength']" >El campo no debe ser menor a 10 caracteres</mat-error>
+                    <mat-error *ngIf="nombre.errors?.['maxlength']" >El campo debe ser menor a 64 caracteres</mat-error>
+                    </mat-form-field>
+                </div>
+    
+                <div class="row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Direccion</mat-label>
+                        <input matInput placeholder="direccion de la sucursal" 
+                        [(ngModel)]="sucursal.direccion_sucursal" 
+                        formControlName="direccion"
+                        >
+                    <mat-error *ngIf="direccion.invalid">{{getErrorMessageDireccion()}}</mat-error>
+                    <mat-error *ngIf="direccion.errors?.['minlength']" >El campo no debe ser menor a 10 caracteres</mat-error>
+                    <mat-error *ngIf="direccion.errors?.['maxlength']" >El campo debe ser menor a 64 caracteres</mat-error>
+                    </mat-form-field>
+                </div>
+    
+                <div class="row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Ubicacion</mat-label>
+                        <input matInput  placeholder="ubicacion de la sucursal" name="ubicacion_sucursal" 
+                        [(ngModel)]="sucursal.ubicacion_sucursal"
+                        formControlName="ubicacion"
+                        >
+                    <mat-error *ngIf="ubicacion.invalid">{{getErrorMessageUbicacion()}}</mat-error>    
+                    <mat-error *ngIf="ubicacion.errors?.['minlength']" >El campo no debe ser menor a 10 caracteres</mat-error>
+                    <mat-error *ngIf="ubicacion.errors?.['maxlength']" >El campo debe ser menor a 64 caracteres</mat-error>
+                    </mat-form-field>
+                </div>
+                
+    
+            </form>
+    
+        </mat-card-content>
+        <mat-card-actions>
+        <button mat-raised-button color="primary" 
+        name="btnGuardar"
+        *ngIf="!sucursal.id_sucursal else elseBlock" 
+        (click)="validacionesForm()" 
+        [disabled]="!formularioSucursal.valid"
+        >
+        Guardar
+        </button>  
+        
+        <ng-template #elseBlock>
+        <button mat-raised-button color="primary" (click)="validacionesFormUpdate()"
+        [disabled]="!formularioSucursal.valid"
+        >Actualizar</button>
+        </ng-template>    
+        
+  
+        <button mat-raised-button color="primary" [routerLink]="['/sucursales']">Cancelar</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

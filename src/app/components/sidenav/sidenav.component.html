@@ -1,0 +1,14 @@
+<ul>
+  <li *ngFor="let nav of fillerNav">
+    <a routerLink="{{nav.route}}"  ariaCurrentWhenActive="page">
+      <mat-icon class="icono">{{nav.icon}}</mat-icon>
+      {{nav.name}}
+    </a>
+  </li>
+  <li (click)="CerrarSesion()">
+    <a  routerLinkActive="active">
+      <mat-icon class="icono" >person</mat-icon>
+      Cerrar Sesion
+    </a>
+  </li>
+</ul>

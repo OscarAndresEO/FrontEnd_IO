@@ -1,0 +1,167 @@
+<div class="container tamanio">
+    <mat-card class="example-card">
+        <mat-card-title>{{titulo}}</mat-card-title>
+        <mat-card-subtitle>Ingresa los datos del proveedor</mat-card-subtitle>
+    <mat-card-content>
+
+    <form [formGroup]="formularioProducto">
+    <div class="row">
+    <div class="col">
+    <div class="row">
+        <mat-form-field class="inputP" appearance="fill">
+        <mat-label>Nombre Producto</mat-label>
+        <input matInput placeholder="nombre del producto" type="text"  name="nombre_producto" 
+         [(ngModel)]="producto.nombre_producto"
+        required minlength="3" maxlength="64"
+        formControlName="nombre_producto" 
+        >
+        <mat-error *ngIf="nombre_producto.invalid && (nombre_producto.dirty || nombre_producto.touched)" ></mat-error>
+        <mat-error *ngIf="nombre_producto.errors?.['required']">{{getErrorNombreRequired()}}</mat-error>
+        <mat-error *ngIf="nombre_producto.errors?.['minlength']">{{getErrorNombreMin()}}</mat-error>
+    </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="fill" class="inputP">
+            <mat-label>Marca</mat-label>
+            
+            <mat-select  [(ngModel)]="producto.id_marca" name="id_marca" formControlName="id_marca">
+                <mat-option *ngFor="let m of marcas"  [value]="m.id_marca">{{m.descripcion}}</mat-option>  
+            </mat-select>
+<!--
+        <mat-error *ngIf="id_marca.invalid && (id_marca.dirty || id_marca.touched)" ></mat-error>
+        <mat-error *ngIf="id_marca.errors?.['required']">{{getMarcaRequired()}}</mat-error> -->
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="fill" class="inputP">
+            <mat-label>Linea</mat-label>
+            <input matInput placeholder="Linea de la motocicleta"  name="linea"
+            [(ngModel)]="producto.linea"
+            minlength="2" maxlength="64"  formControlName="linea"
+            >
+        <mat-error *ngIf="linea.invalid && (linea.dirty || linea.touched)" ></mat-error>
+        <mat-error *ngIf="linea.errors?.['required']">{{getLineaRequired()}}</mat-error>
+        <mat-error *ngIf="linea.errors?.['minlength']">{{getErrorMinLinea()}}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="fill" class="inputP">
+            <mat-label>Modelo</mat-label>
+            <input matInput placeholder="Modelo" type="number" name="modelo" data-mask="0000" maxlength="4"
+            [(ngModel)]="producto.modelo" 
+            required 
+            formControlName="modelo"
+            >
+            <mat-error *ngIf="modelo.invalid && (modelo.dirty || modelo.touched)" ></mat-error>
+            <mat-error *ngIf="modelo.errors?.['required']">{{getModeloRequired()}}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="fill" class="inputP">
+            <mat-label>Cilindraje</mat-label>
+            <input matInput placeholder="Cilindraje en cc" type="number" name="cilindraje"
+            [(ngModel)]="producto.cilindraje"
+            data-mask="0000" required maxlength="4" minlength="2"
+            formControlName="cilindraje"
+            >
+            <mat-error *ngIf="cilindraje.invalid && (cilindraje.dirty || cilindraje.touched)" ></mat-error>
+            <mat-error *ngIf="cilindraje.errors?.['required']">{{getCilindrajeRequired()}}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="fill" class="inputP">
+            <mat-label>Especificaciones Tecnicas</mat-label>
+            <input matInput placeholder="Especificaciones Tecnicas" name="espec_tecnicas"
+            [(ngModel)]="producto.espec_tecnicas" required
+            maxlength="1000" minlength="10"
+            formControlName="espec_tecnicas"
+            >
+            <mat-error *ngIf="espec_tecnicas.invalid && (espec_tecnicas.dirty || espec_tecnicas.touched)" ></mat-error>
+            <mat-error *ngIf="espec_tecnicas.errors?.['required']">{{getEspecTecRequired()}}</mat-error>
+            <mat-error *ngIf="espec_tecnicas.errors?.['minlength']">{{getErrorMinEspecTec()}}</mat-error>
+        </mat-form-field>
+    </div>
+</div>
+    <div class="col">
+        <!--
+        <div class="row">
+            <mat-form-field appearance="fill" class="inputP">
+                <mat-label>Cantidad a Ingresar</mat-label>
+                <input matInput placeholder="Cantidad de items" type="number" name="existencias" data-mask="000000" required
+                [(ngModel)]="producto.existencias"
+                maxlength="6" minlength="1"
+                formControlName="existencias"
+                >
+                <mat-error *ngIf="existencias.invalid && (existencias.dirty || existencias.touched)" ></mat-error>
+                <mat-error *ngIf="existencias.errors?.['required']">{{getExistenciasRequired()}}</mat-error>
+                <mat-error *ngIf="existencias.errors?.['minlength']">{{getErrorMinExistencia()}}</mat-error>
+            </mat-form-field>
+        </div>  -->
+        
+        <div class="row">
+            <mat-form-field appearance="fill" class="inputP">
+                <mat-label>Precio</mat-label>
+                <input matInput placeholder="Precio del producto" name="precio" data-mask="000000" type="number"
+                [(ngModel)]="producto.precio"
+                required maxlength="7" minlength="4"
+                formControlName="precio"
+                >
+                <mat-error *ngIf="precio.invalid && (precio.dirty || precio.touched)" ></mat-error>
+                <mat-error *ngIf="precio.errors?.['required']">{{getPrecioRequired()}}</mat-error>
+                <mat-error *ngIf="precio.errors?.['minlength']">{{getErrorMinPrecio()}}</mat-error>
+            </mat-form-field>
+        </div>
+
+
+        <div class="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Categoria</mat-label>
+                
+                <mat-select  [(ngModel)]="producto.id_categoria" name="id_categoria" formControlName="id_categoria">
+                    <mat-option *ngFor="let r of categorias"  [value]="r.id_categoria">{{r.descripcion_cat}}</mat-option>  
+                </mat-select>
+        <!--        <mat-error *ngIf="id_categoria.invalid && (id_categoria.dirty || id_categoria.touched)" ></mat-error>
+                <mat-error *ngIf="id_categoria.errors?.['required']">{{getCategoriaRequired()}}</mat-error> -->
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Proveedor</mat-label>
+                
+                <mat-select  [(ngModel)]="producto.id_persona" name="id_persona" formControlName="id_persona">
+                    <mat-option *ngFor="let r of proveedores"  [value]="r.id_persona">{{r.nombre_persona}}</mat-option>  
+                </mat-select>
+            <!--    <mat-error *ngIf="id_persona.invalid && (id_persona.dirty || id_persona.touched)" ></mat-error>
+                <mat-error *ngIf="id_persona.errors?.['required']">{{getPersonaRequired()}}</mat-error> -->
+            </mat-form-field>
+        </div>
+    </div>
+    </div>
+
+    </form>
+
+    </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" name="btnGuardar" *ngIf="!producto.id_producto else elseBlock"
+                
+                (click)="crearProducto()" [disabled]="!formularioProducto.valid">
+                Guardar
+            </button>
+
+            <ng-template #elseBlock>
+                <button mat-raised-button color="primary" (click)="updateProducto()" id="btnUpdate"
+                    [disabled]="!formularioProducto.valid"
+                >Actualizar</button>
+            </ng-template>
+
+    
+                <button mat-raised-button color="primary" [routerLink]="['/productos']">Cancelar</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

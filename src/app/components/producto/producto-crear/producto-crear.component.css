@@ -1,0 +1,11 @@
+.tamanio{
+    margin-top: 15px;
+   
+    max-width: 650px;
+    min-height: 700px;
+    max-height: 700px;
+}
+
+.inputP{
+    width: 300px;
+}

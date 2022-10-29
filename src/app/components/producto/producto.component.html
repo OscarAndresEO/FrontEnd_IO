@@ -1,0 +1,75 @@
+<app-sidenav></app-sidenav>
+<div class="container tamanio">
+    <mat-card>
+      <mat-card-header>
+        <h1>{{titulo}}</h1>
+      </mat-card-header>
+      <mat-card-content>
+        
+      </mat-card-content>
+     
+      <div class="table-responsive">
+        <table class="table" id="pdf">
+          <thead>
+              <tr>
+                <th class="tg-0lax">ID</th>
+                <th class="tg-0lax">NOMBRE</th>
+                <th class="tg-0lax">MARCA</th>
+                <th class="tg-0lax">LINEA</th>
+                <th class="tg-0lax">CATEGORIA</th>
+                <th class="tg-0lax">MODELO</th>
+                <th class="tg-0lax">CILINDRAJE</th>
+                <th class="tg-0lax">ESP. TEC.</th>
+                <th class="tg-0lax">EXISTENCIA</th>
+                <th class="tg-0lax">PRECIO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of productos">
+                <td class="tg-0lax" >{{p.id_producto}}</td>
+                <td class="tg-0lax" >{{p.nombre_producto}}</td>
+                <td class="tg-0lax">{{p.descripcion}}</td> <!--nombre de la marca-->
+                <td class="tg-0lax" >{{p.linea}}</td>
+                <td class="tg-0lax" >{{p.descripcion_cat}}</td>
+                <td class="tg-0lax">{{p.modelo}}</td>
+                <td class="tg-0lax">{{p.cilindraje}} </td>
+                <td class="tg-0lax">{{p.espec_tecnicas}} </td>
+                <td class="tg-0lax">{{p.existencias}} </td>
+                <td class="tg-0lax">{{p.precio}} </td>
+                <td>
+                  
+                  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item [routerLink]="['update', p.id_producto]">
+                        <mat-icon>update</mat-icon>
+                        <span>Editar</span>
+                      </button>
+                      <button mat-menu-item  (click)="deleteProducto(p.id_producto)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Eliminar</span>
+                      </button>
+                    </mat-menu>
+                  
+                </td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+
+    <mat-paginator [length]="100"
+            [pageSize]="5"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            aria-label="Select page">
+    </mat-paginator>
+
+        <mat-card-actions>
+          <button mat-raised-button color="primary" [routerLink]="['crear']">Nueva</button>
+
+          <button (click)="downloadPdf()" mat-raised-button color="warn">
+            <mat-icon>summarize</mat-icon> Crear Reporte
+          </button>
+        </mat-card-actions>
+    </mat-card>
+  </div>

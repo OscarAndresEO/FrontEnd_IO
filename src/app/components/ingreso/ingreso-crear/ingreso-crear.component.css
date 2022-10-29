@@ -1,0 +1,45 @@
+.tamanio{
+    max-width: 950px;
+    height: 500px;
+}
+
+.tamanioTable{
+    max-width: 300px;
+    max-height: 500px;
+}
+
+.btnAdd{
+    width: 10px;
+    height: 30px;
+}
+
+.example-form {
+    max-width: 300px;
+    max-height: 500px;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+
+  .formBuscarProducto{
+    
+  }
+  /* Structure */
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .btnCardActions{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .tamanioBtnAcciones{
+    width: 50px;
+  }

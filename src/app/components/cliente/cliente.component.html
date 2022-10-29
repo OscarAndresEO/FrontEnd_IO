@@ -1,0 +1,71 @@
+<app-sidenav></app-sidenav>
+<div class="container tamanio">
+    <mat-card>
+      <mat-card-header>
+        <h1>Clientes</h1>
+      </mat-card-header>
+      <mat-card-content>
+        
+      </mat-card-content>
+     
+      <div class="table-responsive">
+        <table class="table" id="pdf">
+          <thead>
+              <tr>
+                <th class="tg-0lax">ID</th>
+                <th class="tg-0lax">NOMBRE</th>
+                <th class="tg-0lax">NIT</th>
+                <th class="tg-0lax">DIRECCION</th>
+                <th class="tg-0lax">CELULAR</th>
+                <th class="tg-0lax">TELEFONO</th>
+                <th class="tg-0lax">FECHA CREACION</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of clientes">
+                <td class="tg-0lax" >{{p.id_persona}}</td>
+                <td class="tg-0lax" >{{p.nombre_persona}}</td>
+                <td class="tg-0lax">{{p.nit}}</td>
+                <td class="tg-0lax" >{{p.direccion}}</td>
+                <td class="tg-0lax" >{{p.celular}}</td>
+                <td class="tg-0lax">{{p.telefono_fijo}}</td>
+                <td class="tg-0lax">{{p.fecha_creacion}} </td>
+                <td>
+                  
+                  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item [routerLink]="['update', p.id_persona]">
+                        <mat-icon>update</mat-icon>
+                        <span>Editar</span>
+                      </button>
+                      <button mat-menu-item  (click)="deleteCliente(p.id_persona)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Eliminar</span>
+                      </button>
+                    </mat-menu>
+                  
+                </td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+
+    <mat-paginator [length]="100"
+            [pageSize]="5"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            aria-label="Select page">
+    </mat-paginator>
+
+        <mat-card-actions>
+          <button mat-raised-button color="primary" [routerLink]="['crear']">Nueva</button>
+
+          <button (click)="downloadPdf()" mat-raised-button color="warn">
+            <mat-icon>summarize</mat-icon> Crear Reporte
+          </button>
+        </mat-card-actions>
+    </mat-card>
+  </div>
+  
+

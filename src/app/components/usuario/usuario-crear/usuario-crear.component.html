@@ -1,0 +1,141 @@
+<div class="container tamanio">
+    <mat-card class="example-card">
+        <mat-card-title>{{titulo}}</mat-card-title>
+        <mat-card-subtitle>Ingresa los datos del usuario</mat-card-subtitle>
+    <mat-card-content>
+
+    <form [formGroup]="formulario">
+    <div class="row">
+    <div class="col">
+    <div class="row">
+        <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput placeholder="nombre del usuario" type="text"  name="nombre" 
+         [(ngModel)]="usuario.nombre_usuario"
+        required minlength="10" maxlength="64"
+        formControlName="nombre" 
+        >
+        <mat-error *ngIf="nombre_usuario.invalid && (nombre_usuario.dirty || nombre_usuario.touched)" ></mat-error>
+        <mat-error *ngIf="nombre_usuario.errors?.['required']">{{getErrorNombreRequired()}}</mat-error>
+        <mat-error *ngIf="nombre_usuario.errors?.['minlength']">{{getErrorNombreMin()}}</mat-error> 
+    </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="fill">
+        <mat-label>Direccion</mat-label>
+        <input matInput placeholder="nombre del usuario" required name="direccion"
+        [(ngModel)]="usuario.direccion"
+         minlength="10" maxlength="64" 
+         formControlName="direccion"
+    >
+        <mat-error *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" ></mat-error>
+        <mat-error *ngIf="direccion.errors?.['required']">{{getErrorDireccionRequired()}}</mat-error>
+        <mat-error *ngIf="direccion.errors?.['minlength']">{{getErrorDireccionMin()}}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="alguien@mail.com"  name="email"
+            [(ngModel)]="usuario.email" 
+            name="email"  required minlength="10" maxlength="64" 
+            formControlName="email"
+            >
+
+       <mat-error *ngIf="email.invalid && (email.dirty || email.touched)" ></mat-error>
+        <mat-error *ngIf="email.errors?.['required']">{{getErrorEmailRequired()}}</mat-error>
+        <mat-error *ngIf="email.errors?.['minlength']">{{getErrorEmailMin()}}</mat-error> 
+        </mat-form-field>
+    </div>
+    <div class="row">
+        <mat-form-field appearance="fill">
+            <mat-label>CUI</mat-label>
+            <input matInput placeholder="CUI del usuario" data-mask="0000000000000" name="cui"
+            [(ngModel)]="usuario.cui"
+            maxlength="13" minlength="13" 
+            formControlName="cui"
+            >
+   
+        <mat-error *ngIf="cui.invalid && (cui.dirty || cui.touched)" ></mat-error>
+        <mat-error *ngIf="cui.errors?.['required']">{{getErrorCuiRequired()}}</mat-error>
+        <mat-error *ngIf="cui.errors?.['minlength']">{{getErrorCuiMin()}}</mat-error> 
+        </mat-form-field>
+    </div>
+
+</div>
+    <div class="col">
+        <div class="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Username</mat-label>
+                <input matInput placeholder="username"  name="username"
+                [(ngModel)]="usuario.username"
+                maxlength="16" minlength="5"
+                formControlName="username"
+                >
+
+               <mat-error *ngIf="username.invalid && (username.dirty || username.touched)" ></mat-error>
+                <mat-error *ngIf="username.errors?.['required']">{{getErrorUsernameRequired()}}</mat-error>
+                <mat-error *ngIf="username.errors?.['minlength']">{{getErrorUsernameMin()}}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Clave</mat-label>
+                <input matInput placeholder="clave" name="clave"
+                [(ngModel)]="usuario.clave"
+                maxlength="16" minlength="8"
+                formControlName="clave"
+                >
+          
+                <mat-error *ngIf="clave.invalid && (clave.dirty || clave.touched)" ></mat-error>
+                <mat-error *ngIf="clave.errors?.['required']">{{getErrorClaveRequired()}}</mat-error>
+                <mat-error *ngIf="clave.errors?.['minlength']">{{getErrorClaveMin()}}</mat-error> 
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Rol del usuario</mat-label>
+                
+                <mat-select  [(ngModel)]="usuario.rol" name="rol" formControlName="rol">
+                    <mat-option *ngFor="let r of roles"  [value]="r.nombre_catalogo">{{r.descripcion}}</mat-option>  
+                </mat-select>
+            </mat-form-field>
+        </div>
+                        
+
+        <div class="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Sucursal del usuario</mat-label>
+                <mat-select [(ngModel)]="usuario.id_sucursal" name="id_sucursal" formControlName="id_sucursal">
+                    <mat-option *ngFor="let s of sucursales"  [value]="s.id_sucursal">{{s.nombre_sucursal}}</mat-option>  
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    </div>
+
+    </form>
+
+    </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" name="btnGuardar" *ngIf="!usuario.id_usuario else elseBlock"
+                
+                (click)="crearUsuario()" [disabled]="!formulario.valid">
+                Guardar
+            </button>
+
+            <ng-template #elseBlock>
+                <button mat-raised-button color="primary" (click)="updateUsuario()" id="btnUpdate"
+                    [disabled]="!formulario.valid"
+                >Actualizar</button>
+            </ng-template>
+
+    
+                <button mat-raised-button color="primary" [routerLink]="['/usuarios']">Cancelar</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
